@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from jwt_manager import create_token
+from utils.jwt_manager import create_token
 from fastapi.responses import JSONResponse
 from schema.user_schema import User
 
