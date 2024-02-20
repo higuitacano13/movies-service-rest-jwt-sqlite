@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends, Path, Query
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
-from dto.movie_dto import Movie
+from schema.movie_schema import Movie
 from config.database import Session
 from middlewares.jwt_bearer import JWTBearer
 from services.movie_service import MovieService
@@ -19,7 +19,7 @@ def get_movies():
         result = MovieService(db).get_movies()
         return JSONResponse(status_code=200, content=jsonable_encoder(result))
     except Exception as error:
-        return HTTPException(status_code=500, content=str(error))
+        return HTTPException(status_code=500, detail=str(error))
 
 # ================== Consultar Peliculas por Id ====================== #
 
@@ -29,11 +29,11 @@ def get_movie_by_id(id: int = Path(ge=1)):
         db = Session()
         result = MovieService(db).get_movie_by_id(id)
         if not result:
-            raise HTTPException(status_code=404, content={"Message": 'Movie not found'})
+            raise HTTPException(status_code=404, detail={"Message": 'Movie not found'})
         else:
             return JSONResponse(status_code=200,content=jsonable_encoder(result))
     except Exception as error:
-        raise HTTPException(status_code=500, content={"Message": str(error)})
+        raise HTTPException(status_code=500, detail={"Message": str(error)})
         
 # ================== Consultar Peliculas por Categoria ====================== #
 
@@ -47,7 +47,7 @@ def get_movies_by_category(category: str = Query(min_length=5, max_length=15)):
         else:
             return JSONResponse(status_code=200,content=jsonable_encoder(result))
     except Exception as error:
-        raise HTTPException(status_code=500, content={"Message": str(error)})
+        raise HTTPException(status_code=500, detail={"Message": str(error)})
     
 # ================== Crear Nueva Película ====================== #
 
@@ -58,7 +58,7 @@ def create_movies(movie: Movie):
         MovieService(db).create_movies(movie)
         return JSONResponse(status_code=201, content={'Message': "Se ha guardado el registro exitosamente"})
     except Exception as error:
-        raise HTTPException(status_code=500, content=str(error))
+        raise HTTPException(status_code=500, detail=str(error))
 
 # ================== Modificar Película ====================== #
     
@@ -66,10 +66,14 @@ def create_movies(movie: Movie):
 def update_movie( id: int, movie: Movie):
     try:
         db = Session()
+        result = MovieService(db).get_movie_by_id(id)
+        print(f'El resultado es: {result}')
+        if result is None:
+            raise HTTPException(status_code=404, detail={"Message": 'Movie not found'})
         MovieService(db).update_movie(movie, id)
         return JSONResponse(status_code=200, content={'Message': "Se ha editado el registro exitosamente"})
     except Exception as error:
-        raise HTTPException(status_code=500, content=str(error))
+        raise HTTPException(status_code=500, detail=str(error))
     
 
 # ================== Eliminar Película ====================== #
@@ -78,15 +82,14 @@ def update_movie( id: int, movie: Movie):
 def delete_movie(id: int):
     try:
         db = Session()
-        result = MovieService(db).delete_movie(id)
+        result = MovieService(db).get_movie_by_id(id)
         if not result:
-            raise HTTPException(status_code=404, content={"Message": 'Movie not found'})
+            raise HTTPException(status_code=404, detail={"Message": 'Movie not found'})
         else:
-            db.delete(result)
-            db.commit()
+            MovieService(db).delete_movie(id)
             return JSONResponse(status_code=200, content={'Message': "Se ha eliminado el registro exitosamente"})
     except Exception as error:
-        raise HTTPException(status_code=500, content=str(error))
+        raise HTTPException(status_code=500, detail=str(error))
 
 
 

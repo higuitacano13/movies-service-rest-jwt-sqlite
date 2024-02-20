@@ -1,7 +1,7 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from jwt_manager import create_token
 from fastapi.responses import JSONResponse
-from dto.user_dto import User
+from schema.user_schema import User
 
 user_router = APIRouter()
 
@@ -14,4 +14,4 @@ def login(user: User):
             token = create_token(dict(user))
         return JSONResponse(status_code=200, content={'Token': token})
     except Exception as error:
-        raise Exception(error)
+        raise HTTPException(status_code=500, detail=str(error))
