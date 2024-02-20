@@ -24,7 +24,7 @@ class Movie(BaseModel):
                 "id": 1,
                 "title": "Título película",
                 "overview": "Descripción",
-                "year": 1990,
+                "year": 1990, 
                 "rating": 1.0,
                 "category": "Acción"
             }
