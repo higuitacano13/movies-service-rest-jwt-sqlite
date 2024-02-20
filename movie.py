@@ -3,7 +3,7 @@ from typing import Optional
 from datetime import datetime
 
 
-class Movie(BaseModel):
+class Movie(BaseModel): 
     id: Optional[int] = None
     title: str = Field(min_length=1, max_length=100)
     overview: str = Field(min_length=15, max_length=150)
