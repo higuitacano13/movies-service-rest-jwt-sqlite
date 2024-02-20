@@ -1,0 +1,36 @@
+--- Notas Curso FastAPI ---
+
+1- Inicialmente es recomendable crear un entorno virtual utilizando el comando: python -m venv env. 
+2- Una vez creado el entorno se debe activar utilizando el comando: env/Scripts/activate.
+3- Siempre se debe descargar los módulos de FastAPI y Uvicorn.
+
+--- Módulo de ejecución con Uvicorn ---
+
+1- Se crea la aplicación y los métodos correspondientes.
+2- Para ejecutar la aplicación se debe utilizar el comando: uvicorn main: (nombre del app) //  uvicorn main:app --reload
+3- Para cambiar el puerto puedo añadir la bandera --port. //  uvicorn main:app --reload --port 5000
+4- Para ejecutar la aplicación en una misma red puedo añadir la bandera --host // uvicorn main:app --reload --port 5000 --host 0.0.0.0
+
+--- Documentación con Swagger ---
+1- Acceder a la documentación autogenerada con Swagger se debe agregar /docs a la ruta de ejecución. 
+   Ejemplo: http://127.0.0.1:8000/docs
+
+--- Validación de datos ---
+
+Los datos pueden ser validados a nivel de clase, de parámetros de ruta o parámetros Query.
+1- Para consultar los tipos de guardados a nivel de Clase verificar el archivo movie.py
+
+--- Devolver los datos tipo Json ---
+1- Para devolver los datos en formato Json se debe utilizar la clase JsonResponse y el valor que se desea convertir a Json se incluye dentro de la propiedad content
+
+--- Autenticación JWT ---
+1- Para crear el sistema de autenticación se utiliza la librería pyjwt la cuál permite implementar métodos de autenticación y autorización basados en la tecnología de Json Web Token.
+
+2- Una vez instalada la librería se deben crear dos métodos. Uno para crear el token y otro para validarlo, para crear el token debemos tener en cuenta que debemos tener se debe enviar la data de autenticación (Usuario y Contraseña) y debemos tener adicionalmente una clave secreta que se utiliza junto con el algoritmo de encriptación en el método encode de la clase. Nota: verificar clase jwt_manager.
+
+3- En la case jwt_bearer se desarrollo un ejemplo de la clase encargada de implementar el proceso de autorización de la solicitud.
+
+4- Para finalizar se debe incluir la propiedad dependencies en el método http para especificar que la ruta de consumo se encuentra protegida. El ejemplo está en la clase main.
+
+--- Conexión a BD ---
+1- Para realizar la conexión a una BD se utiliza el ORM SQLAlchemy, además de apoyarnos con una extensión llamada SQLite Viwer.
