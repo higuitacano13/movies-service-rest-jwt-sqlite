@@ -14,7 +14,6 @@ app.include_router(movie_router)
 app.include_router(user_router)
 
 # ========== Conexión a BD ========== #
-
 Base.metadata.create_all(bind=engine)
 
 

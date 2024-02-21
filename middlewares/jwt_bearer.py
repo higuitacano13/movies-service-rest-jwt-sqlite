@@ -1,10 +1,9 @@
-from fastapi import Request, HTTPException
+from fastapi import Request
 from fastapi.security import HTTPBearer
 from utils.jwt_manager import validate_token
 
 class JWTBearer(HTTPBearer):
     async def __call__(self, request: Request):
         auth = await super().__call__(request)
-        data = validate_token(auth.credentials)
-        if data['email'] != "jhiguitac@gmail.com" and data['password'] != "pass2024":
-            raise HTTPException(status_code=403, detail="Credenciales incorrectas")
+        validate_token(auth.credentials)
+

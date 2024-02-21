@@ -1,5 +1,4 @@
 from models.movie_model import MovieModel
-from fastapi import HTTPException
 from schema.movie_schema import Movie
 
 class MovieService():
