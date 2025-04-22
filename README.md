@@ -1,8 +1,32 @@
-# Servicio REST - CRUD SQLite - JWT 
+# 🎬 Movies API REST con JWT & SQLite
 
-Esta aplicación es un servicio REST creado con Fast API que permite realizar las operaciones del CRUD con la entidad Movies conectada a una BD SQLite. Las rutas cuentan con un sistema de autenticación y autorización por medio de la tecnología de Json Web Token (JWT).
+Movies Service REST es una API construida con FastAPI que permite realizar operaciones CRUD sobre una base de datos de películas. Incluye autenticación y autorización mediante JSON Web Tokens (JWT) para proteger los endpoints, garantizando así que solo los usuarios autenticados puedan acceder o modificar los datos.
 
-# Módulos utilizados
-- FastAPI.
-- pyjwt.
-- sqlalchemy.
+# 🚀 Tecnologías utilizadas
+- **FastAPI** – Framework moderno y rápido para la creación de APIs con Python.
+- **SQLite** – Base de datos relacional ligera para almacenamiento local.
+- **SQLAlchemy** – ORM para trabajar con bases de datos de forma declarativa.
+- **PyJWT** – Librería para codificar y decodificar JWT.
+
+# ⚙️ Funcionalidades
+**1. Autenticación con JWT**
+  - Generación de tokens al iniciar sesión.
+  - Verificación de tokens en rutas protegidas.
+  - Expiración configurable para los tokens.
+    
+**2.CRUD de Películas (Entidad: Movie)**
+  - Crear película (POST /movies)
+  - Obtener todas las películas (GET /movies)
+  - Obtener una película por ID (GET /movies/{id})
+  - Actualizar película (PUT /movies/{id})
+  - Eliminar película (DELETE /movies/{id})
+  - Todas las operaciones están protegidas con JWT.
+    
+**3. Gestión de usuarios (básico)**
+  - Registro de nuevos usuarios.
+  - Inicio de sesión para obtener el token JWT.
+
+# ✅ Requisitos del entorno
+- Python 3.8+
+- pip (gestor de paquetes de Python)
+- Entorno virtual (opcional pero recomendado)
